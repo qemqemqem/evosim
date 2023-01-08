@@ -145,6 +145,7 @@ MonoBehaviour:
   moveTick: 0
   mass: 1
   myCapsule: {fileID: 2949334364612183554}
+  myColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!136 &6875081713190882854
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -173,7 +174,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 126
   m_CollisionDetection: 0
 --- !u!1 &2949334364612183554
 GameObject:
