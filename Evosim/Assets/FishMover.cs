@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class FishMover : MonoBehaviour
@@ -12,9 +13,12 @@ public class FishMover : MonoBehaviour
     
     float eatTimer = 1; // Seconds
 
+    public static List<FishMover> allFish = new List<FishMover>();
+
     // Start is called before the first frame update
     void Start()
     {
+        allFish.Add(this);
     }
     
     
@@ -36,6 +40,7 @@ public class FishMover : MonoBehaviour
         if (myScore > theirScore)
         {
             otherFish.SetActive(false);
+            allFish.Remove(otherFish.GetComponent<FishMover>());
             direction += direction.normalized * 0.2f;
             mass += theirScore;
 
@@ -62,6 +67,10 @@ public class FishMover : MonoBehaviour
     void Update()
     {
         eatTimer -= Time.deltaTime;
+
+        // mass += gameObject.transform.position.y / 200f * Time.deltaTime;
+        // if (mass < 0.2f)
+        //     mass = 0.2f;
         
         if (Time.frameCount % 100 == moveTick)
             direction = direction + (new Vector3(Random.value, Random.value, Random.value) 
@@ -78,5 +87,17 @@ public class FishMover : MonoBehaviour
         
         // Set size
         gameObject.transform.localScale = new Vector3(1f, 1f, 1f) * Mathf.Pow(mass, 0.333f);
+        
+        // // Vision?
+        // foreach (var fish in allFish) // WARNING: This is slow
+        // {
+        //     if (fish == this)
+        //         continue; // Don't friend yourself
+        //     var distance = Vector3.Distance(gameObject.transform.position, fish.gameObject.transform.position);
+        //     if (distance < 1f)
+        //     {
+        //         // Debug.Log("I've got a friend nearby!");
+        //     }
+        // }
     }
 }
